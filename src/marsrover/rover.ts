@@ -1,8 +1,10 @@
-export function go(rover: Rover, instructions: string) {
+export function go(rover: Rover, instructions: string): Rover {
   let position = rover.position;
 
   if (instructions === 'L') {
     rover = left(rover);
+  } else if (instructions === 'R') {
+    rover = right(rover);
   } else {
     switch (rover.direction) {
       case 'N':
@@ -30,6 +32,13 @@ function left(rover: Rover): Rover {
   const newindex =
     (directions.indexOf(rover.direction) - 1 + directions.length) %
     directions.length;
+  return { ...rover, direction: directions[newindex] };
+}
+
+function right(rover: Rover): Rover {
+  const directions = ['N', 'E', 'S', 'W'];
+  const newindex =
+    (directions.indexOf(rover.direction) + 1) % directions.length;
   return { ...rover, direction: directions[newindex] };
 }
 
