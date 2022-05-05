@@ -1,0 +1,14 @@
+User actions (to test):
+- customer can buy cd
+  - stock count > 0
+- customer can search by title
+- customer can search by artist
+- customer can search by combination of title and artist
+- customer can pay by credit card
+  - payment successful -> update stock count, customer can review
+  - payment unsuccessful -> inform customer
+- warehouse can receive batches of CDs from record labels
+- warehouse keeps stock count of how many copies per cd
+- customer can leave reviews for bought cd (through warehouse)
+  - rating from 1-10
+  - optional text
