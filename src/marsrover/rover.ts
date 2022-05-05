@@ -1,23 +1,41 @@
 export function go(rover: Rover, instructions: string) {
   let position = rover.position;
+  let direction = rover.direction;
+
   switch (rover.direction) {
     case 'N':
-      instructions === 'F' ? position[1]++ : position[1]--;
+      if (instructions === 'L') {
+        direction = 'W';
+      } else {
+        instructions === 'F' ? position[1]++ : position[1]--;
+      }
       break;
     case 'E':
-      instructions === 'F' ? position[0]++ : position[0]--;
+      if (instructions === 'L') {
+        direction = 'N';
+      } else {
+        instructions === 'F' ? position[0]++ : position[0]--;
+      }
       break;
     case 'S':
-      instructions === 'F' ? position[1]-- : position[1]++;
+      if (instructions === 'L') {
+        direction = 'E';
+      } else {
+        instructions === 'F' ? position[1]-- : position[1]++;
+      }
       break;
     case 'W':
-      instructions === 'F' ? position[0]-- : position[0]++;
+      if (instructions === 'L') {
+        direction = 'S';
+      } else {
+        instructions === 'F' ? position[0]-- : position[0]++;
+      }
       break;
     default:
       break;
   }
 
-  return { ...rover, position };
+  return { ...rover, position, direction };
 }
 
 export interface Rover {

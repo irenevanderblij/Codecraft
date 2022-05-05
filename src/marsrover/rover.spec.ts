@@ -1,4 +1,4 @@
-import {go, Rover} from './rover';
+import { go, Rover } from './rover';
 
 describe('marsrover', () => {
   it('should move forward when direction is south', () => {
@@ -39,5 +39,25 @@ describe('marsrover', () => {
   it('should move backwards when direction is west', () => {
     const rover: Rover = { position: [2, 2], direction: 'W' };
     expect(go(rover, 'B').position).toEqual([3, 2]);
+  });
+
+  it('should turn the rover left when facing north', () => {
+    const rover: Rover = { position: [2, 2], direction: 'N' };
+    expect(go(rover, 'L').direction).toEqual('W');
+  });
+
+  it('should turn the rover left when facing east', () => {
+    const rover: Rover = { position: [2, 2], direction: 'E' };
+    expect(go(rover, 'L').direction).toEqual('N');
+  });
+
+  it('should turn the rover left when facing south', () => {
+    const rover: Rover = { position: [2, 2], direction: 'S' };
+    expect(go(rover, 'L').direction).toEqual('E');
+  });
+
+  it('should turn the rover left when facing west', () => {
+    const rover: Rover = { position: [2, 2], direction: 'W' };
+    expect(go(rover, 'L').direction).toEqual('S');
   });
 });
