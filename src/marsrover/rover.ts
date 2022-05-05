@@ -28,7 +28,8 @@ export function go(rover: Rover, instructions: string) {
 function left(rover: Rover): Rover {
   const directions = ['N', 'E', 'S', 'W'];
   const newindex =
-    (directions.indexOf(rover.direction) - 1 + directions.length) % directions.length;
+    (directions.indexOf(rover.direction) - 1 + directions.length) %
+    directions.length;
   return { ...rover, direction: directions[newindex] };
 }
 

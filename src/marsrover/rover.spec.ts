@@ -34,9 +34,22 @@ describe('marsrover', () => {
     ${{ position: [2, 2], direction: 'W' }} | ${'S'}
     ${{ position: [2, 2], direction: 'E' }} | ${'N'}
   `(
-    'should turn to $result when moving forward with rover: $rover',
+    'should turn to $result when turning $rover left',
     ({ rover, result }: { rover: Rover; result: [] }) => {
       expect(go(rover, 'L').direction).toEqual(result);
+    }
+  );
+
+  it.each`
+    rover                                   | result
+    ${{ position: [2, 2], direction: 'S' }} | ${'W'}
+    ${{ position: [2, 2], direction: 'N' }} | ${'E'}
+    ${{ position: [2, 2], direction: 'W' }} | ${'N'}
+    ${{ position: [2, 2], direction: 'E' }} | ${'S'}
+  `(
+    'should turn to $result when turning $rover right',
+    ({ rover, result }: { rover: Rover; result: [] }) => {
+      expect(go(rover, 'R').direction).toEqual(result);
     }
   );
 });
