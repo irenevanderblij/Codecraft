@@ -52,4 +52,14 @@ describe('when customer', () => {
     warehouse.receiveBatch([new Cd(1, 'Title', 'Artist')]);
     expect(warehouse.cdList[0].stock).toBe(3);
   });
+
+  it('should increase stock with 1 when batch is send with 2 cds', () => {
+    warehouse.cdList.push(new Cd(1, 'I want it that way', 'Backstreet Boys'));
+    warehouse.receiveBatch([
+      new Cd(4, 'I want it that way', 'Backstreet Boys'),
+    ]);
+    expect(
+      warehouse.search('I want it that way', 'Backstreet Boys').stock
+    ).toBe(5);
+  });
 });
