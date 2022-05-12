@@ -11,7 +11,7 @@ describe('when customer', () => {
   jest.mock('./charts');
 
   beforeEach(() => {
-    cd = new Cd(2, 'Title', 'Artist');
+    cd = new Cd(2, 'Title', 'Artist', 10);
     warehouse = new Warehouse([cd]);
     externalPaymentProcess = new ExternalPaymentProcess(true);
     charts = new Charts();
@@ -65,14 +65,14 @@ describe('when customer', () => {
 
   describe('Receive batches of cds', () => {
     it('should increase stock with 1 when batch is send with 1 cd', () => {
-      warehouse.receiveBatch([new Cd(1, 'Title', 'Artist')]);
+      warehouse.receiveBatch([new Cd(1, 'Title', 'Artist', 10)]);
       expect(warehouse.getCdList()[0].getStock()).toBe(3);
     });
 
     it('should increase stock with 1 when batch is send with 2 cds', () => {
-      warehouse.addCd(new Cd(1, 'I want it that way', 'Backstreet Boys'));
+      warehouse.addCd(new Cd(1, 'I want it that way', 'Backstreet Boys', 10));
       warehouse.receiveBatch([
-        new Cd(4, 'I want it that way', 'Backstreet Boys'),
+        new Cd(4, 'I want it that way', 'Backstreet Boys', 10),
       ]);
       expect(
         warehouse.search('I want it that way', 'Backstreet Boys').getStock()
@@ -81,11 +81,20 @@ describe('when customer', () => {
 
     it('should add new cd to list when it is not found', () => {
       warehouse.receiveBatch([
-        new Cd(4, 'I want it that way', 'Backstreet Boys'),
+        new Cd(4, 'I want it that way', 'Backstreet Boys', 10),
       ]);
       expect(
         warehouse.search('I want it that way', 'Backstreet Boys').getStock()
       ).toBe(4);
+    });
+  });
+
+  describe('Lowest price guarantee', () => {
+    it('should ', () => {
+      const top100: Cd[] = [cd];
+      const lowestPricesCompetitors = 12;
+      expect(top100.find((cd) => cd)).toBeTruthy();
+      expect(lowestPricesCompetitors).toBeGreaterThan(cd.getPrice() + 1);
     });
   });
 });
