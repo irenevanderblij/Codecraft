@@ -4,10 +4,12 @@ import { Warehouse } from './warehouse';
 
 describe('when customer', () => {
   let cd: Cd;
+  let warehouse: Warehouse;
   let externalPaymentProcess: ExternalPaymentProcess;
 
   beforeEach(() => {
     cd = new Cd(2, 'Title', 'Artist');
+    warehouse = new Warehouse([cd]);
   });
 
   describe('buys cd', () => {
@@ -36,12 +38,10 @@ describe('when customer', () => {
 
   describe('searches for a cd', () => {
     it('should get the correct cd back', () => {
-      const warehouse = new Warehouse([cd]);
       expect(warehouse.search('Title', 'Artist')).toBe(cd);
     });
 
     it('should not get a result when there is no matching cd', () => {
-      const warehouse = new Warehouse([cd]);
       expect(
         warehouse.search('Unknown title', 'Unknown artist')
       ).toBeUndefined();
@@ -49,7 +49,6 @@ describe('when customer', () => {
   });
 
   it('should increase stock with 1 when batch is send with 1 cd', () => {
-    const warehouse = new Warehouse([cd]);
     warehouse.receiveBatch([new Cd(1, 'Title', 'Artist')]);
     expect(warehouse.cdList[0].stock).toBe(3);
   });
