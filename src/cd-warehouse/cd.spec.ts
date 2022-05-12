@@ -62,4 +62,13 @@ describe('when customer', () => {
       warehouse.search('I want it that way', 'Backstreet Boys').stock
     ).toBe(5);
   });
+
+  it('should add new cd to list when it is not found', () => {
+    warehouse.receiveBatch([
+      new Cd(4, 'I want it that way', 'Backstreet Boys'),
+    ]);
+    expect(
+      warehouse.search('I want it that way', 'Backstreet Boys').stock
+    ).toBe(4);
+  });
 });

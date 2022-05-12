@@ -15,7 +15,8 @@ export class Warehouse {
 
   receiveBatch(cds: Cd[]) {
     cds.forEach((cd) => {
-      this.search(cd.title, cd.artist).stock += cd.stock;
+      const foundCd = this.search(cd.title, cd.artist);
+      foundCd ? (foundCd.stock += cd.stock) : this.cdList.push(cd);
     });
   }
 }
