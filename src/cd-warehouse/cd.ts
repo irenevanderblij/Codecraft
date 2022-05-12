@@ -2,13 +2,29 @@ import { ExternalPaymentProcess } from './external-payment-process';
 
 export class Cd {
   constructor(
-    public stock: number,
-    public title: string,
-    public artist: string
+    private stock: number,
+    private title: string,
+    private artist: string
   ) {}
 
   buy(externalPaymentProcess: ExternalPaymentProcess) {
     if (externalPaymentProcess.isPaymentAccepted() && this.stock > 0)
       this.stock--;
+  }
+
+  getStock() {
+    return this.stock;
+  }
+
+  setStock(stock: number) {
+    this.stock = stock;
+  }
+
+  getTitle() {
+    return this.title;
+  }
+
+  getArtist() {
+    return this.artist;
   }
 }

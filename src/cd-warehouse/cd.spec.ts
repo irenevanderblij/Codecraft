@@ -17,22 +17,22 @@ describe('when customer', () => {
       externalPaymentProcess = new ExternalPaymentProcess(true);
       cd.buy(externalPaymentProcess);
 
-      expect(cd.stock).toEqual(1);
+      expect(cd.getStock()).toEqual(1);
     });
 
     it('should not lower stock if payment is not accepted', () => {
       externalPaymentProcess = new ExternalPaymentProcess(false);
       cd.buy(externalPaymentProcess);
 
-      expect(cd.stock).toEqual(2);
+      expect(cd.getStock()).toEqual(2);
     });
 
     it('should not lower stock when out of stock', () => {
-      cd.stock = 0;
+      cd.setStock(0);
       externalPaymentProcess = new ExternalPaymentProcess(true);
       cd.buy(externalPaymentProcess);
 
-      expect(cd.stock).toBe(0);
+      expect(cd.getStock()).toBe(0);
     });
   });
 
@@ -50,16 +50,16 @@ describe('when customer', () => {
 
   it('should increase stock with 1 when batch is send with 1 cd', () => {
     warehouse.receiveBatch([new Cd(1, 'Title', 'Artist')]);
-    expect(warehouse.cdList[0].stock).toBe(3);
+    expect(warehouse.getCdList()[0].getStock()).toBe(3);
   });
 
   it('should increase stock with 1 when batch is send with 2 cds', () => {
-    warehouse.cdList.push(new Cd(1, 'I want it that way', 'Backstreet Boys'));
+    warehouse.addCd(new Cd(1, 'I want it that way', 'Backstreet Boys'));
     warehouse.receiveBatch([
       new Cd(4, 'I want it that way', 'Backstreet Boys'),
     ]);
     expect(
-      warehouse.search('I want it that way', 'Backstreet Boys').stock
+      warehouse.search('I want it that way', 'Backstreet Boys').getStock()
     ).toBe(5);
   });
 
@@ -68,7 +68,7 @@ describe('when customer', () => {
       new Cd(4, 'I want it that way', 'Backstreet Boys'),
     ]);
     expect(
-      warehouse.search('I want it that way', 'Backstreet Boys').stock
+      warehouse.search('I want it that way', 'Backstreet Boys').getStock()
     ).toBe(4);
   });
 });
