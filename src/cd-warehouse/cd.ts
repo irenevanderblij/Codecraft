@@ -13,9 +13,10 @@ export class Cd {
     charts: Charts,
     copies = 1
   ) {
-    if (externalPaymentProcess.isPaymentAccepted() && this.stock > 0)
-      this.stock--;
-    charts.notify(this.title, this.artist, copies);
+    if (externalPaymentProcess.isPaymentAccepted() && this.stock >= copies) {
+      this.stock -= copies;
+      charts.notify(this.title, this.artist, copies);
+    }
   }
 
   getStock() {

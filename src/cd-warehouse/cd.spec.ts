@@ -32,15 +32,14 @@ describe('when customer', () => {
     });
 
     it('should not lower stock when out of stock', () => {
-      cd.setStock(0);
-      cd.buy(externalPaymentProcess, charts, 1);
+      cd.buy(externalPaymentProcess, charts, 3);
 
-      expect(cd.getStock()).toBe(0);
+      expect(cd.getStock()).toBe(2);
     });
 
     it('should notify the charts', () => {
       jest.spyOn(charts, 'notify').mockReturnValue();
-      const copies = 3;
+      const copies = 2;
 
       cd.buy(externalPaymentProcess, charts, copies);
 
