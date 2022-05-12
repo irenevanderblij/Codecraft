@@ -1,4 +1,5 @@
 import { ExternalPaymentProcess } from './external-payment-process';
+import { Charts } from './charts';
 
 export class Cd {
   constructor(
@@ -7,9 +8,14 @@ export class Cd {
     private artist: string
   ) {}
 
-  buy(externalPaymentProcess: ExternalPaymentProcess) {
+  buy(
+    externalPaymentProcess: ExternalPaymentProcess,
+    charts: Charts,
+    copies = 1
+  ) {
     if (externalPaymentProcess.isPaymentAccepted() && this.stock > 0)
       this.stock--;
+    charts.notify(this.title, this.artist, copies);
   }
 
   getStock() {
